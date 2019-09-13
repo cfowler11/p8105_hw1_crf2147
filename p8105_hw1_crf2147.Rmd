@@ -70,15 +70,24 @@ data_frame_p2 = tibble(
 )
 ```
 
-
-```{r}
-mean(pull(data_frame_p2, x))
-median(pull(data_frame_p2, x))
-```
-
 The size of the data set is `r nrow(data_frame_p2)` by `r ncol(data_frame_p2)`. 
 
 For variable `x` the mean is `r mean(pull(data_frame_p2, x))`, median is `r median(pull(data_frame_p2, x))`, and standard deviation is `r sd(pull(data_frame_p2, x))`. `x + y > 1` is true for `r mean(pull(data_frame_p2, numerical_from_logical))*100`% of cases. 
 
+```{r}
+#scatterplot of x vs y with logical vector colored
+ggplot(data_frame_p2, aes(x = x, y = y, color= logical_vector)) + geom_point()
+
+#saving plot 1
+ggsave("p8105_hw1_plot.pdf")
+
+#scatterplot of x vs y with numerical vector colored
+ggplot(data_frame_p2, aes(x = x, y = y, color= numerical_from_logical)) + geom_point()
+
+#scatterplot of x vs y with factor vector colored
+ggplot(data_frame_p2, aes(x = x, y = y, color= factor_from_logical)) + geom_point()
+```
+
+The colors in the logical and categorical graphs are identical, as both have 2 options being colored accordingly. The numerical vector is different, as R understands any numerical values to be possible in this vector. Therefore, when we assign it color, R chooses to use a color spectrum with lighter colors representing the highest values and darker representing the lowest values. Because in our case we only have two values, 0 and 1, this results in only the two most extreme shades being shown in the graph. 
 
 
