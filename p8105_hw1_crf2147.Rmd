@@ -44,9 +44,17 @@ as.numeric(pull(data_frame_p1, (normal_sample_positive)))
 as.numeric(pull(data_frame_p1, (vec_char)))
 as.numeric(pull(data_frame_p1, (vec_factor)))
 ```
-When applying the 'as.numeric' function to the logical, character, and categorical vectors, it not possible with the character vector. This is becauase this vector contains random word entries, which R is not able to process as anything numerical. However, in the logical vector, R can interpret the 1 and 0 entries as plain numbers, and in the categorical vector R can assign numerical values 1, 2, and 3 to the three categories, alfabetically. 
+When applying the 'as.numeric' function to the logical, character, and categorical vectors, it is not possible with the character vector. This is becauase this vector contains abritrary elements, which R is not able to process as anything numerical. However, in the logical vector, R can interpret the 1 and 0 entries as plain numbers, and in the categorical vector R can assign numerical values 1, 2, and 3 to the three categories, alfabetically. This demonstrates how it's possible to take the mean of the logical vector above, as it has 1 and 0 values associated with True and False, respectively. Additionally, it shows how the character vector couldn't have the mean calculated above, as it is understood to be unrelated elements. With the categorical vector, if we had used the 'as.numeric' function above before taking the mean, we would have been able to, as R has now assigned a number to each category. 
 
 ```{r}
-as.numeric(pull(data_frame_p1, (normal_sample_positive)))*pull(data_frame_p1, (normal_sample))
+#logical vector to numeric and multiplied
+as.numeric(pull(data_frame_p1, (normal_sample_positive))) * 
+  pull(data_frame_p1, (normal_sample))
+#logical vector to factor, then multipled
+factor(pull(data_frame_p1, (normal_sample_positive))) * 
+  pull(data_frame_p1, (normal_sample))
+#logical vector to factor, then numeric, then multiplied
+as.numeric(factor(pull(data_frame_p1, (normal_sample_positive)))) * 
+  pull(data_frame_p1, (normal_sample))
 ```
 
