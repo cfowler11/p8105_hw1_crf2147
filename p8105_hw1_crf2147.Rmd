@@ -58,3 +58,27 @@ as.numeric(factor(pull(data_frame_p1, (normal_sample_positive)))) *
   pull(data_frame_p1, (normal_sample))
 ```
 
+#Problem 2
+```{r}
+#Creating data frame as described in Problem 2
+data_frame_p2 = tibble(
+  x = rnorm(500),
+  y = rnorm(500),
+  logical_vector = x + y > 0,
+  numerical_from_logical = as.numeric(logical_vector),
+  factor_from_logical = factor(logical_vector)
+)
+```
+
+
+```{r}
+mean(pull(data_frame_p2, x))
+median(pull(data_frame_p2, x))
+```
+
+The size of the data set is `r nrow(data_frame_p2)` by `r ncol(data_frame_p2)`. 
+
+For variable `x` the mean is `r mean(pull(data_frame_p2, x))`, median is `r median(pull(data_frame_p2, x))`, and standard deviation is `r sd(pull(data_frame_p2, x))`. `x + y > 1` is true for `r mean(pull(data_frame_p2, numerical_from_logical))*100`% of cases. 
+
+
+
