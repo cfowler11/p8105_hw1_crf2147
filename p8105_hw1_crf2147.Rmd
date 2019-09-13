@@ -1,0 +1,52 @@
+---
+title: "Data Science Homework 1"
+author: "Charlotte Fowler"
+date: "9/12/2019"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Problem 1
+
+```{r}
+#First, I the data frame as described in problem 1, with 4 variables.
+data_frame_p1 = tibble(
+  normal_sample = rnorm(8),
+  normal_sample_positive = normal_sample > 0,
+  vec_char = c("I", "need", "eight", "words", "to", "fill", "the", "vector"),
+  vec_factor = factor(c("teal", "black", "teal", "white", "white", "teal", "black", "teal"))
+)
+
+
+#Now, to attempt taking the mean of each variable: 
+
+#mean of normal sample
+mean(pull(data_frame_p1, normal_sample))
+
+#mean of logical vector
+mean(pull(data_frame_p1, (normal_sample_positive)))
+
+#mean of character vector
+mean(pull(data_frame_p1, (vec_char)))
+
+#mean of categorical vector
+mean(pull(data_frame_p1, (vec_factor)))
+```
+I can take the mean of the sample values and of the logical vector as these  both contain have numerical values, however I cannot take the mean of the character nor categorical vector. 
+
+
+```{r, results= 'hide', warning= FALSE}
+#Applying 'as.numeric' function to logical, character, and categorical vectors
+as.numeric(pull(data_frame_p1, (normal_sample_positive)))
+as.numeric(pull(data_frame_p1, (vec_char)))
+as.numeric(pull(data_frame_p1, (vec_factor)))
+```
+When applying the 'as.numeric' function to the logical, character, and categorical vectors, it not possible with the character vector. This is becauase this vector contains random word entries, which R is not able to process as anything numerical. However, in the logical vector, R can interpret the 1 and 0 entries as plain numbers, and in the categorical vector R can assign numerical values 1, 2, and 3 to the three categories, alfabetically. 
+
+```{r}
+as.numeric(pull(data_frame_p1, (normal_sample_positive)))*pull(data_frame_p1, (normal_sample))
+```
+
