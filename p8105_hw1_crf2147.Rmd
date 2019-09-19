@@ -6,13 +6,14 @@ output: github_document
 ---
 
 ```{r}
+#loading necessary packages
 library(tidyverse)
 ```
 
 # Problem 1
 
 ```{r}
-#First, I the data frame as described in problem 1, with 4 variables.
+#First, I create the data frame as described in problem 1, with 4 variables.
 data_frame_p1 = tibble(
   normal_sample = rnorm(8),
   normal_sample_positive = normal_sample > 0,
@@ -38,13 +39,13 @@ mean(pull(data_frame_p1, (vec_factor)))
 I can take the mean of the sample values and of the logical vector as these  both contain have numerical values, however I cannot take the mean of the character nor categorical vector. 
 
 
-```{r, results= 'hide', warning= FALSE}
+```{r, results = 'hide', warning = FALSE}
 #Applying 'as.numeric' function to logical, character, and categorical vectors
 as.numeric(pull(data_frame_p1, (normal_sample_positive)))
 as.numeric(pull(data_frame_p1, (vec_char)))
 as.numeric(pull(data_frame_p1, (vec_factor)))
 ```
-When applying the 'as.numeric' function to the logical, character, and categorical vectors, it is not possible with the character vector. This is becauase this vector contains abritrary elements, which R is not able to process as anything numerical. However, in the logical vector, R can interpret the 1 and 0 entries as plain numbers, and in the categorical vector R can assign numerical values 1, 2, and 3 to the three categories, alfabetically. This demonstrates how it's possible to take the mean of the logical vector above, as it has 1 and 0 values associated with True and False, respectively. Additionally, it shows how the character vector couldn't have the mean calculated above, as it is understood to be unrelated elements. With the categorical vector, if we had used the 'as.numeric' function above before taking the mean, we would have been able to, as R has now assigned a number to each category. 
+When applying the 'as.numeric' function to the logical, character, and categorical vectors, it is not possible with the character vector. This is becauase this vector contains abritrary elements, which R is not able to process as anything numerical. However, in the logical vector R can interpret the TRUE and FALSE entries as 1 and 0 numbers, and in the categorical vector R can assign numerical values 1, 2, and 3 to the three categories, alphabetically. This demonstrates how it's possible to take the mean of the logical vector above, as it has 1 and 0 values associated with True and False, respectively. Additionally, it shows how the character vector couldn't have the mean calculated above, as it is understood to be unrelated elements. With the categorical vector, if we had used the 'as.numeric' function above before taking the mean, we would have been able to, as R has now assigned a number to each category. However, this mean would be meaningless as the categories are unassociated and unranked. 
 
 ```{r}
 #logical vector to numeric and multiplied
@@ -58,7 +59,7 @@ as.numeric(factor(pull(data_frame_p1, (normal_sample_positive)))) *
   pull(data_frame_p1, (normal_sample))
 ```
 
-#Problem 2
+# Problem 2
 ```{r}
 #Creating data frame as described in Problem 2
 data_frame_p2 = tibble(
@@ -76,27 +77,26 @@ For variable `x` the mean is `r mean(pull(data_frame_p2, x))`, median is `r medi
 
 ```{r}
 #scatterplot of x vs y with logical vector colored
-ggplot(data_frame_p2, aes(x = x, y = y, color= logical_vector)) + 
+ggplot(data_frame_p2, aes(x = x, y = y, color = logical_vector)) + 
   geom_point() +
   ggtitle("Scatterplot with Logical Vector") +
-  labs(color= "x + y > 1")
+  labs(color = "x + y > 1")
   
 #saving plot 1
 ggsave("p8105_hw1_plot.pdf")
 
 #scatterplot of x vs y with numerical vector colored
-ggplot(data_frame_p2, aes(x = x, y = y, color= numerical_from_logical)) +
+ggplot(data_frame_p2, aes(x = x, y = y, color = numerical_from_logical)) +
   geom_point() + 
   ggtitle("Scatterplot with Numerical Vector") +
-  labs(color= "x + y > 1")
+  labs(color = "x + y > 1")
 
 #scatterplot of x vs y with factor vector colored
-ggplot(data_frame_p2, aes(x = x, y = y, color= factor_from_logical)) +
+ggplot(data_frame_p2, aes(x = x, y = y, color = factor_from_logical)) +
   geom_point() +
   ggtitle("Scatterplot with Factor Vector") +
-  labs(color= "x + y > 1")
+  labs(color = "x + y > 1")
 ```
 
-The colors in the logical and categorical graphs are identical, as both have 2 options being colored accordingly. The numerical vector is different, as R understands any numerical values to be possible in this vector. Therefore, when we assign it color, R chooses to use a color spectrum with lighter colors representing the highest values and darker representing the lowest values. Because in our case we only have two values, 0 and 1, this results in only the two most extreme shades being shown in the graph. 
-
+The colors in the logical and categorical graphs are identical, as both have 2 options being colored accordingly. The numerical vector is different, as R understands any numerical values to be possible in this vector. Therefore, when we assign it color, R chooses to use a color spectrum with lighter colors representing the highest values and darker representing the lowest values. As in our case we only have two values, 0 and 1, this results in only the two most extreme shades being shown in the graph. 
 
